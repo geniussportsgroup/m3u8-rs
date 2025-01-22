@@ -388,13 +388,13 @@ fn create_and_parse_media_playlist_full() {
                 offset: Some(4559),
             }),
             discontinuity: true,
-            key: Some(Key {
+            keys: vec! [Key {
                 method: KeyMethod::None,
                 uri: Some("https://secure.domain.com".into()),
                 iv: Some("0xb059217aa2649ce170b734".into()),
                 keyformat: Some("xXkeyformatXx".into()),
                 keyformatversions: Some("xXFormatVers".into()),
-            }),
+            }],
             map: Some(Map {
                 uri: "www.map-uri.com".into(),
                 byte_range: Some(ByteRange {
@@ -512,7 +512,7 @@ fn create_and_parse_media_playlist_llhls() {
                 title: None,
                 byte_range: None,
                 discontinuity: false,
-                key: None,
+                keys: vec![],
                 map: Some(Map {
                     uri: "init_track1504_.mp4".into(),
                     byte_range: Some(ByteRange {

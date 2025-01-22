@@ -404,7 +404,7 @@ fn media_playlist_tag(i: &[u8]) -> IResult<&[u8], MediaPlaylistTag> {
 fn media_playlist_from_tags(mut tags: Vec<MediaPlaylistTag>) -> MediaPlaylist {
     let mut media_playlist = MediaPlaylist::default();
     let mut next_segment = MediaSegment::empty();
-    let mut encryption_key = None;
+    let mut encryption_keys = vec![];
     let mut map = None;
     let mut parts: Vec<Part> = Vec::new();
 
@@ -464,7 +464,7 @@ fn media_playlist_from_tags(mut tags: Vec<MediaPlaylistTag>) -> MediaPlaylist {
                     next_segment.discontinuity = true;
                 }
                 SegmentTag::Key(k) => {
-                    encryption_key = Some(k);
+                    encryption_keys.push(k);
                 }
                 SegmentTag::Map(m) => {
                     map = Some(m);
@@ -476,13 +476,13 @@ fn media_playlist_from_tags(mut tags: Vec<MediaPlaylistTag>) -> MediaPlaylist {
                     next_segment.daterange = Some(d);
                 }
                 SegmentTag::Uri(u) => {
-                    next_segment.key = encryption_key.clone();
+                    next_segment.keys = encryption_keys;
                     next_segment.map = map.clone();
                     next_segment.uri = u;
                     next_segment.parts.append(&mut parts.clone());
                     media_playlist.segments.push(next_segment);
                     next_segment = MediaSegment::empty();
-                    encryption_key = None;
+                    encryption_keys = vec![];
                     map = None;
                     parts = Vec::new();
                 }
