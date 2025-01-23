@@ -1,0 +1,9 @@
+{
+  "image": "ubuntu:24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/rust:1": {
+      "version": "1.81",
+      "profile": "default"
+    }
+  }
+}

@@ -388,13 +388,13 @@ fn create_and_parse_media_playlist_full() {
                 offset: Some(4559),
             }),
             discontinuity: true,
-            key: Some(Key {
+            keys: vec! [Key {
                 method: KeyMethod::None,
                 uri: Some("https://secure.domain.com".into()),
                 iv: Some("0xb059217aa2649ce170b734".into()),
                 keyformat: Some("xXkeyformatXx".into()),
                 keyformatversions: Some("xXFormatVers".into()),
-            }),
+            }],
             map: Some(Map {
                 uri: "www.map-uri.com".into(),
                 byte_range: Some(ByteRange {
@@ -512,7 +512,7 @@ fn create_and_parse_media_playlist_llhls() {
                 title: None,
                 byte_range: None,
                 discontinuity: false,
-                key: None,
+                keys: vec![],
                 map: Some(Map {
                     uri: "init_track1504_.mp4".into(),
                     byte_range: Some(ByteRange {
@@ -672,42 +672,43 @@ fn parse_and_create_playlist_llhls() {
 #EXTM3U
 #EXT-X-VERSION:6
 #EXT-X-INDEPENDENT-SEGMENTS
-#EXT-X-SERVER-CONTROL:CAN-SKIP-UNTIL=10,PART-HOLD-BACK=1.533,CAN-BLOCK-RELOAD=YES
-#EXT-X-PART-INF:PART-TARGET=0.511
+#EXT-X-SERVER-CONTROL:CAN-SKIP-UNTIL=10.00000,PART-HOLD-BACK=1.53300,CAN-BLOCK-RELOAD=YES
+#EXT-X-PART-INF:PART-TARGET=0.51100
 #EXT-X-TARGETDURATION:1
 #EXT-X-MEDIA-SEQUENCE:1
 #EXT-X-MAP:URI=\"init_track1504_.mp4\"
 #EXT-X-PROGRAM-DATE-TIME:2024-12-17T16:10:10.190Z
-#EXTINF:0.998467,
+#EXTINF:0.99847,
 1_track1504_.m4s
-#EXTINF:0.998456,
+#EXTINF:0.99846,
 2_track1504_.m4s
-#EXTINF:0.998456,
+#EXTINF:0.99846,
 3_track1504_.m4s
-#EXTINF:0.998456,
+#EXTINF:0.99846,
 4_track1504_.m4s
-#EXTINF:0.998467,
+#EXTINF:0.99847,
 5_track1504_.m4s
-#EXTINF:0.998456,
+#EXTINF:0.99846,
 6_track1504_.m4s
-#EXTINF:0.998456,
+#EXTINF:0.99846,
 7_track1504_.m4s
-#EXT-X-PART:URI=\"8_track1504_.m4s.1\",DURATION=0.510644,INDEPENDENT=YES
-#EXT-X-PART:URI=\"8_track1504_.m4s.2\",DURATION=0.487433,INDEPENDENT=YES
-#EXTINF:0.998456,
+#EXT-X-PART:URI=\"8_track1504_.m4s.1\",DURATION=0.51064,INDEPENDENT=YES
+#EXT-X-PART:URI=\"8_track1504_.m4s.2\",DURATION=0.48743,INDEPENDENT=YES
+#EXTINF:0.99846,
 8_track1504_.m4s
-#EXT-X-PART:URI=\"9_track1504_.m4s.1\",DURATION=0.510644,INDEPENDENT=YES
-#EXT-X-PART:URI=\"9_track1504_.m4s.2\",DURATION=0.487433,INDEPENDENT=YES
-#EXTINF:0.998456,
+#EXT-X-PART:URI=\"9_track1504_.m4s.1\",DURATION=0.51064,INDEPENDENT=YES
+#EXT-X-PART:URI=\"9_track1504_.m4s.2\",DURATION=0.48743,INDEPENDENT=YES
+#EXTINF:0.99846,
 9_track1504_.m4s
-#EXT-X-PART:URI=\"10_track1504_.m4s.1\",DURATION=0.510644,INDEPENDENT=YES
-#EXT-X-PART:URI=\"10_track1504_.m4s.2\",DURATION=0.487433,INDEPENDENT=YES
-#EXTINF:0.998467,
+#EXT-X-PART:URI=\"10_track1504_.m4s.1\",DURATION=0.51064,INDEPENDENT=YES
+#EXT-X-PART:URI=\"10_track1504_.m4s.2\",DURATION=0.48743,INDEPENDENT=YES
+#EXTINF:0.99847,
 10_track1504_.m4s
-#EXT-X-PART:URI=\"11_track1504_.m4s.1\",DURATION=0.510644,INDEPENDENT=YES
+#EXT-X-PART:URI=\"11_track1504_.m4s.1\",DURATION=0.51064,INDEPENDENT=YES
 #EXT-X-PRELOAD-HINT:TYPE=PART,URI=\"11_track1504_.m4s.2\"
 #EXT-X-RENDITION-REPORT:URI=\"playlist_1.m3u8\",LAST-MSN=1,LAST-PART=8
 ";
+
     let playlist_parsed = print_parse_and_create_playlist(&playlist_original);
     assert_eq!(playlist_parsed, playlist_original);
 }
